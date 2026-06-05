@@ -1,5 +1,18 @@
 # INTERVIEW_PREP.md — Deep Research Agent
 
+## Search & Data Modeling
+
+**Q: Why would you use Pydantic validators over a plain dataclass for external API data?**
+Tests: defensive engineering, understanding of data contracts
+Why they ask: big tech systems ingest data from dozens of external APIs.
+Interviewers want to know if you think about failure at the boundary,
+not after the bad data has already corrupted three downstream services.
+Your answer should mention: fail-fast validation, API contract vs ideal contract,
+silent failures vs loud failures, and what happens at scale when 1 in 10,000
+API responses has a malformed field.
+
+---
+
 ## Data Modeling & Validation
 
 **Q: You're ingesting data from a third-party API. The API sometimes omits fields
@@ -22,3 +35,12 @@ Why they ask: this is a common footgun. They want to know if you've actually
 hit this bug or if you just read the docs. `Optional[str]` still requires the
 field — it just allows None as a value. `Optional[str] = None` makes the field
 truly non-required. Matters every time you model an API that omits fields.
+
+**Q: A third-party API adds a new field you haven't modeled.
+How does Pydantic handle it, and what's the right production strategy?**
+Tests: Pydantic internals, API contract management, staging vs prod discipline
+Why they ask: upstream API drift is inevitable at scale. They want to know
+if you've thought about schema evolution beyond "it works today."
+Your answer should mention: extra="ignore" default, extra="forbid" in staging
+to catch breaking changes early, logging model_extra in prod for observability,
+and why silent schema drift is a latency/correctness time bomb.
