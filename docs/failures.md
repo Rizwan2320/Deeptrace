@@ -13,3 +13,24 @@ Observed: Tokyo population query returns 36.9M, 10.3M, and 14M from three source
 Cause: different geographic definitions (metro vs city proper), different years
 Impact: generation model has no way to resolve this without explicit source context
 Status: Known. Addressed in Week 4 verification loop.
+
+## F-003: Multi-hop queries fail by omission, not hallucination
+
+Observed: "Who founded the company that makes the iPhone 15 chip?" → correctly
+hedged, but never attempted decomposition (chip maker → Apple → founder)
+Cause: naive pipeline has no query decomposition step
+Status: Expected at this phase. Addressed in Week 2 (decomposer).
+
+## F-004: Recency conflicts surfaced but not resolved
+
+Observed: Bitcoin price query returned 5 different values from 5 sources,
+correctly flagged as inconsistent, but no use of published_date to determine
+which source is freshest
+Cause: ranking/filtering doesn't yet use temporal metadata
+Status: Known. Addressed in Week 3 (recency-aware ranking).
+
+## F-005: [pending] Encoding bug — degree symbol corrupted (Â°C, Â°F)
+
+Observed: boiling point answer rendered "100Â°C" instead of "100°C"
+Hypothesis: [your guess here]
+Status: Investigating

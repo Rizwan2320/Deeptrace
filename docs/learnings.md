@@ -69,3 +69,63 @@ leaves the server; (2) auto-generate OpenAPI documentation with the exact
 response schema; (3) filter out any extra fields not in the model, preventing
 accidental data leaks. In production: it's a contract enforced at runtime,
 not just a type hint the interpreter ignores.
+
+## tility a separate field from category, not folded into it?
+
+They're independent axes. A multi-hop question can be stable (TSMC's
+founding year) or volatile (the current Instagram CEO). Merging them into
+one field would force duplicate categories (multi_hop_stable,
+multi_hop_volatile...) or lose the distinction entirely. Orthogonal
+concerns get orthogonal fields.
+
+Why does running a script with -m matter for imports?
+
+When you run python some_script.py directly, Python adds that script's
+own containing folder to sys.path — not necessarily the project root. If
+the script needs to import a sibling package, Python looks for it relative
+to wherever the script physically lives.
+
+validate_gold_dataset.py lives INSIDE evals/. Running it directly
+(python evals/validate_gold_dataset.py) puts evals/ itself on sys.path —
+so from evals.models import ... fails, because Python is looking for an
+"evals" folder inside evals/, not for evals/ as a package one level up.
+Running it with -m (python -m evals.validate_gold_dataset) instead
+starts sys.path from the project root and treats it as a module inside
+the evals package — that's why the import resolves.
+
+## Why didn't test_citation_scorer.py need the -m flag?
+
+Because it lives directly in the project root, not inside a package
+subfolder. Running it directly adds its own containing folder to
+sys.path — and that folder IS the project root, so "evals" resolves
+correctly as a subfolder right there. The -m flag only matters when the
+script you're executing is itself inside the package it needs to import
+from. Root-level scripts never have this problem, because the root
+already contains every top-level package you've built.
+
+## A technically-correct number can still hide a real distinction
+
+The gold dataset validator originally printed "9 questions without a fixed
+gold_answer" as one number. That number was accurate — but it silently
+merged two different root causes: 5 questions had no fixed answer because
+they're volatile (the true answer changes over time), and 4 had no fixed
+answer because they're analytical (no single answer exists even at one
+point in time). The fix wasn't a different number — it was splitting one
+number into the two causes underneath it. Whenever a metric combines
+distinct failure reasons into one count, the count can be true and still
+hide the thing you actually need to see.
+
+## Volatility (time) is not the same axis as agreement (consensus)
+
+"Stable" describes whether the ground truth drifts as time passes —
+TSMC's founding year is stable, Bitcoin's price is volatile. "Agreement"
+describes something orthogonal: whether everyone looking at the same facts
+right now converges on one answer. Analytical questions are stable (the
+trade-offs between microservices and monoliths don't change month to
+month) but have permanently low agreement (two competent engineers can
+weigh the same trade-offs differently and both be right). Recency
+questions are usually high-agreement but volatile (everyone agrees on
+today's Bitcoin price; that agreed-on number is wrong tomorrow). These are
+two separate dimensions that happened to get collapsed into one field
+(category == analytical implies low agreement) because the dataset is
+small enough that it didn't matter yet.

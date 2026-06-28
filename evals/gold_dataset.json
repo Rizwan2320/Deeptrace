@@ -1,0 +1,182 @@
+[
+  {
+    "id": "Q001",
+    "query": "What is the boiling point of water at sea level?",
+    "category": "simple_factual",
+    "volatility": "stable",
+    "gold_answer": "100°C (212°F, 373.15 K) at standard atmospheric pressure",
+    "expected_behavior": "States the value clearly with correct units, cites at least one source",
+    "notes": "Promoted from Day 5 break test. System answered correctly."
+  },
+  {
+    "id": "Q002",
+    "query": "What is the capital of Australia?",
+    "category": "simple_factual",
+    "volatility": "stable",
+    "gold_answer": "Canberra",
+    "expected_behavior": "States Canberra, not Sydney (a common confidently-wrong answer)",
+    "notes": "Classic trap question - tests against training-data bias toward Sydney"
+  },
+  {
+    "id": "Q003",
+    "query": "How many continents are there on Earth?",
+    "category": "simple_factual",
+    "volatility": "stable",
+    "gold_answer": "7 by the common convention; some models use 6",
+    "expected_behavior": "States 7, ideally notes the 6-continent model exists",
+    "notes": null
+  },
+  {
+    "id": "Q004",
+    "query": "What is the chemical formula for table salt?",
+    "category": "simple_factual",
+    "volatility": "stable",
+    "gold_answer": "NaCl",
+    "expected_behavior": "States NaCl correctly",
+    "notes": null
+  },
+  {
+    "id": "Q005",
+    "query": "Who founded the company that makes the chip inside the iPhone 15?",
+    "category": "multi_hop",
+    "volatility": "stable",
+    "gold_answer": "Apple, founded by Steve Jobs, Steve Wozniak, and Ronald Wayne (the A17 Pro is designed in-house by Apple)",
+    "expected_behavior": "Connects chip to Apple to founders, or correctly hedges if sources don't clarify in-house design",
+    "notes": "Promoted from Day 5. System hedged because it could not connect 'designed by Apple' to 'who founded Apple' - confirms decomposition gap (F-003)."
+  },
+  {
+    "id": "Q006",
+    "query": "What is the headquarters country of the parent company of WhatsApp?",
+    "category": "multi_hop",
+    "volatility": "stable",
+    "gold_answer": "United States (WhatsApp is owned by Meta, headquartered in California)",
+    "expected_behavior": "Connects WhatsApp to Meta to USA",
+    "notes": null
+  },
+  {
+    "id": "Q007",
+    "query": "Who is the CEO of the company that owns Instagram?",
+    "category": "multi_hop",
+    "volatility": "volatile",
+    "gold_answer": null,
+    "expected_behavior": "Connects Instagram to Meta to its current CEO, sourced and dated",
+    "notes": "Leadership can change - graded on correct chain plus current sourcing, not a fixed name"
+  },
+  {
+    "id": "Q008",
+    "query": "What year was the company that primarily manufactures the iPhone's main processor founded?",
+    "category": "multi_hop",
+    "volatility": "stable",
+    "gold_answer": "1987 (TSMC, the primary foundry for Apple's A-series chips)",
+    "expected_behavior": "Distinguishes chip designer (Apple) from chip manufacturer (TSMC), then gives 1987",
+    "notes": "Tests whether the system can tell design from manufacturing"
+  },
+  {
+    "id": "Q009",
+    "query": "What is the current price of Bitcoin?",
+    "category": "recency",
+    "volatility": "volatile",
+    "gold_answer": null,
+    "expected_behavior": "Surfaces multiple sources, flags disagreement or provides a timestamped figure - never confidently states one stale number without sourcing",
+    "notes": "Promoted from Day 5 (F-004). System correctly surfaced disagreement but had no recency ranking to pick the freshest source."
+  },
+  {
+    "id": "Q010",
+    "query": "Who is the current CEO of OpenAI?",
+    "category": "recency",
+    "volatility": "volatile",
+    "gold_answer": null,
+    "expected_behavior": "States the current officeholder with a source and ideally a date, hedges if sources conflict",
+    "notes": null
+  },
+  {
+    "id": "Q011",
+    "query": "What is the latest stable version of the Python programming language?",
+    "category": "recency",
+    "volatility": "volatile",
+    "gold_answer": null,
+    "expected_behavior": "States the version with source and date, does not rely on training knowledge alone",
+    "notes": null
+  },
+  {
+    "id": "Q012",
+    "query": "What is today's weather in Tokyo?",
+    "category": "recency",
+    "volatility": "volatile",
+    "gold_answer": null,
+    "expected_behavior": "Provides current conditions with an explicit timestamp, refuses to answer if sources are stale by more than a few hours",
+    "notes": "Most extreme volatility test - changes hourly, good stress test for staleness detection"
+  },
+  {
+    "id": "Q013",
+    "query": "What will the population of Tokyo be in 2087?",
+    "category": "adversarial",
+    "volatility": "stable",
+    "gold_answer": "Unanswerable - no source can confirm a future population 61 years out",
+    "expected_behavior": "Explicitly states the sources do not support a confident answer, does not fabricate a number",
+    "notes": "Promoted from Day 5. System correctly refused."
+  },
+  {
+    "id": "Q014",
+    "query": "What will be the exact closing stock price of Apple on January 1, 2030?",
+    "category": "adversarial",
+    "volatility": "stable",
+    "gold_answer": "Unanswerable - future stock prices cannot be known",
+    "expected_behavior": "Refuses to fabricate a number, explains why this cannot be known",
+    "notes": null
+  },
+  {
+    "id": "Q015",
+    "query": "What did the President say in a private conversation that was never recorded or reported?",
+    "category": "adversarial",
+    "volatility": "stable",
+    "gold_answer": "Unanswerable - no public source exists for unrecorded private conversations",
+    "expected_behavior": "States no source can answer this, does not fabricate a quote",
+    "notes": "High-risk for hallucination - tests whether the system invents a plausible-sounding fake quote"
+  },
+  {
+    "id": "Q016",
+    "query": "What is the exact number of grains of sand on all of Earth's beaches?",
+    "category": "adversarial",
+    "volatility": "stable",
+    "gold_answer": "Unanswerable precisely - only rough estimates exist",
+    "expected_behavior": "States this cannot be counted exactly, may cite a rough estimate if sources have one, does not invent false precision",
+    "notes": null
+  },
+  {
+    "id": "Q017",
+    "query": "Compare the economic trade-offs of renewable energy subsidies versus fossil fuel subsidies.",
+    "category": "analytical",
+    "volatility": "stable",
+    "gold_answer": null,
+    "expected_behavior": "Covers at least two distinct dimensions (e.g. job creation, long-term cost, environmental externality), cites sources for both sides",
+    "notes": "No single correct answer - graded on dimension coverage and balanced sourcing, not exact wording"
+  },
+  {
+    "id": "Q018",
+    "query": "What are the main trade-offs between microservices and monolithic architecture for a startup?",
+    "category": "analytical",
+    "volatility": "stable",
+    "gold_answer": null,
+    "expected_behavior": "Covers operational complexity, team size, deployment speed, and cost as distinct dimensions",
+    "notes": null
+  },
+  {
+    "id": "Q019",
+    "query": "Compare the environmental impact of electric vehicles versus hydrogen fuel cell vehicles.",
+    "category": "analytical",
+    "volatility": "stable",
+    "gold_answer": null,
+    "expected_behavior": "Covers manufacturing impact, energy source, and infrastructure as separate dimensions, sources both sides",
+    "notes": null
+  },
+  {
+    "id": "Q020",
+    "query": "What are the advantages and disadvantages of remote work versus in-office work for software engineering teams?",
+    "category": "analytical",
+    "volatility": "stable",
+    "gold_answer": null,
+    "expected_behavior": "Covers productivity, collaboration, and hiring pool as distinct dimensions, balanced sourcing",
+    "notes": null
+  }
+]
