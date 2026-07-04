@@ -26,3 +26,64 @@ volatility and low-agreement set independently. Don't add the field
 preemptively — this is exactly the kind of complexity that should be
 earned by a real example, not designed for in advance.
 Status: Open, monitoring.
+
+## TD-003: Claim extraction deferred — hallucination scorer is atomic only
+
+Decision: hallucination_scorer.py judges one claim against one source.
+No orchestration layer yet to extract claims from a full answer and pair
+them with their cited sources.
+Reason: building the atomic unit correctly before the orchestration layer
+prevents the orchestration from hardcoding assumptions about what the
+atomic unit returns. If the judge's output schema changes, the orchestration
+layer changes in one place.
+Tradeoff: the hallucination scorer is not yet usable on a real eval run —
+it requires a claim-extraction layer to sit above it.
+Resolution: next file to build.
+Status: Open.
+
+# TD-004: Claim extractor approach — Option A vs Option B
+
+Decision: pending — see next session.
+Option A (regex sentence splitter): free, deterministic, fast. Breaks on
+multi-sentence claims and uncited sentences.
+Option B (LLM claim extractor): handles complex structures. Costs tokens,
+introduces non-determinism, adds latency to every eval run.
+Tradeoff: Option A is cheap but brittle; Option B is robust but expensive
+for a tool that runs on every eval. The right answer depends on how often
+real model answers actually produce multi-sentence claims with shared
+citations — empirical question, not a theoretical one.
+Status: Pending decision.
+
+## TD-004: Claim extractor — Option A (regex) now, Option B (LLM) when earned
+
+Decision: build regex extractor first, behind a shared extract_claims()
+interface. LLM extractor implements the same interface when Option A
+demonstrably fails on real answers.
+Trigger for switching: a specific answer where regex mis-pairs claims and
+sources, measurably reducing faithfulness score vs. manual grading.
+Cost of switching: one import line. Zero changes to eval orchestration.
+Status: Resolved. Build Option A now.
+
+## TD-004 update 1: concrete failure case observed
+
+Observed in first real test: compound sentence "boiling point is 373 K [1],
+equivalent to 100°C [1, 3, 4, 5] or 212°F [1, 3]" collapsed into one
+ClaimSourcePair with union of citations [1, 3, 4, 5]. The judge now evaluates
+the entire compound claim against each source individually — source [3] which
+only covers 100°C gets asked to support a claim that also includes 373 K and
+212°F, which it doesn't. This produces false "insufficient_evidence" verdicts
+on claims that are individually well-supported.
+Switch trigger: if this false insufficient_evidence rate exceeds 15% on real
+eval runs, switch to LLM extractor.
+
+## TD-004 update 2: bullet-list answers not handled by regex splitter
+
+Observed: Bitcoin price query produced a bullet-list answer. The regex
+splitter (splits on sentence-ending punctuation) treated the entire
+bullet block as one compound claim, collapsing five individually-sourced
+prices into one claim judged against one source. Result: faithfulness
+rate 0.0 on an answer that was actually correct and well-sourced.
+This is a false negative — the scorer is penalizing good behavior.
+Running tally of Option A failures: 2 (compound sentence, bullet list).
+Switch trigger remains: if false negative rate exceeds 15% on a full
+eval run, switch to LLM extractor.
