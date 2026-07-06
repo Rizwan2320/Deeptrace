@@ -17,6 +17,7 @@ generous interpretation — see LEARNINGS.md for the reasoning.
 """
 
 import logging
+from typing import Optional
 from pydantic import BaseModel
 
 from evals.citation_scorer import check_citation_validity, CitationCheckResult
@@ -38,9 +39,10 @@ class SourceQualityScore(BaseModel):
     query: str
     citation_validity: CitationCheckResult
     claim_results: list[ClaimResult]
-    faithfulness_rate: float
+    faithfulness_rate: Optional[float]
     judge_error_rate: float
     total_claims: int
+    zero_claims: bool
 
 
 def _resolve_claim_verdict(claim: str, source_indices: list[int], results: list[SearchResult]) -> ClaimJudgment:
@@ -93,7 +95,17 @@ def score_source_quality(query: str, answer: str, results: list[SearchResult]) -
     supported = sum(1 for c in claim_results if c.verdict == ClaimVerdict.SUPPORTED)
     judge_errors = sum(1 for c in claim_results if c.verdict == ClaimVerdict.JUDGE_ERROR)
 
-    faithfulness_rate = round(supported / total, 4) if total > 0 else 0.0
+    # A zero-claim answer (typical of a correct hedge/refusal) is NOT the
+    # same as a 0.0 faithfulness answer (every claim checked and failed).
+    # Forcing zero claims onto the 0.0-1.0 scale corrupts category
+    # averages by punishing correct hedging as if it were hallucination.
+    # faithfulness_rate is None here — the eval aggregator must exclude
+    # None from averages, not treat it as 0.0. Whether the hedge itself
+    # was APPROPRIATE is a separate question for the hedge scorer (not
+    # yet built), which checks refusal correctness against question
+    # difficulty — not something this scorer measures.
+    zero_claims = total == 0
+    faithfulness_rate = round(supported / total, 4) if total > 0 else None
     judge_error_rate = round(judge_errors / total, 4) if total > 0 else 0.0
 
     if judge_error_rate > 0.15:
@@ -111,4 +123,5 @@ def score_source_quality(query: str, answer: str, results: list[SearchResult]) -
         faithfulness_rate=faithfulness_rate,
         judge_error_rate=judge_error_rate,
         total_claims=total,
+        zero_claims=zero_claims,
     )

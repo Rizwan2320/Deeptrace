@@ -1,0 +1,872 @@
+{
+  "run_name": "week1b_baseline",
+  "timestamp": "2026-07-06T09:32:21.218950+00:00",
+  "prompt_version": "v1.0",
+  "summary": {
+    "total_questions": 20,
+    "successful": 20,
+    "failed": 0,
+    "failed_ids": [],
+    "avg_faithfulness_rate": 0.8407,
+    "avg_judge_error_rate": 0.0,
+    "citation_validity_pass_count": 20,
+    "avg_latency_ms": 12589.79,
+    "faithfulness_by_category": {
+      "simple_factual": 0.9167,
+      "multi_hop": 0.75,
+      "adversarial": 0.8167,
+      "analytical": 0.8036
+    }
+  },
+  "results": [
+    {
+      "id": "Q001",
+      "query": "What is the boiling point of water at sea level?",
+      "category": "simple_factual",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The boiling point of water at sea level is 373 K or 100°C [1], which is also equivalent to 212°F [1]. This is also confirmed by other sources, which state that the boiling point of water at sea level is 100°C [3] and 212° F [2]. Additionally, source [5] states that the boiling point of water is 100 degrees Celsius at a pressure of 1 atm, which is the standard atmospheric pressure at sea level. Therefore, the boiling point of water at sea level is 100°C or 212°F or 373 K [1, 2, 3, 5].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 4,
+      "claim_results": [
+        {
+          "claim": "The boiling point of water at sea level is 373 K or 100°C , which is also equivalent to 212°F .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim by stating the boiling point of water at sea level as 373 K or 100°C, which is also equivalent to 212°F."
+        },
+        {
+          "claim": "This is also confirmed by other sources, which state that the boiling point of water at sea level is 100°C  and 212° F .",
+          "source_indices": [
+            2,
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that water boils at 100°C at sea level, which matches the claim about the boiling point of water in Celsius, but does not mention the Fahrenheit value, however the Celsius value is confirmed."
+        },
+        {
+          "claim": "Additionally, source  states that the boiling point of water is 100 degrees Celsius at a pressure of 1 atm, which is the standard atmospheric pressure at sea level.",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the boiling point of water is 100 degrees Celsius at a pressure of 1 atm, which is the standard atmospheric pressure at sea level."
+        },
+        {
+          "claim": "Therefore, the boiling point of water at sea level is 100°C or 212°F or 373 K .",
+          "source_indices": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim by stating the boiling point of water at sea level as 373 K, 100°C, and 212°F."
+        }
+      ],
+      "latency_ms": 7400.54
+    },
+    {
+      "id": "Q002",
+      "query": "What is the capital of Australia?",
+      "category": "simple_factual",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The capital of Australia is Canberra [1], [2], [3], [4]. It is located in the Australian Capital Territory [1], [3], [5], and was selected as the capital city in 1913 [4]. Canberra is situated between the larger cities of Sydney and Melbourne [1], [3], and became the seat of federal parliament in 1927 [3].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 3,
+      "claim_results": [
+        {
+          "claim": "The capital of Australia is Canberra , , , .",
+          "source_indices": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the capital of Australia is Canberra, located in the southeast between the larger cities of Sydney and Melbourne."
+        },
+        {
+          "claim": "It is located in the Australian Capital Territory , , , and was selected as the capital city in 1913 .",
+          "source_indices": [
+            1,
+            3,
+            4,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text mentions Canberra as the capital of Australia, which is located in the Australian Capital Territory, and this information indirectly supports the claim about the location and capital status."
+        },
+        {
+          "claim": "Canberra is situated between the larger cities of Sydney and Melbourne , , and became the seat of federal parliament in 1927 .",
+          "source_indices": [
+            1,
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that Canberra became the seat of federal parliament in 1927 and is situated between Sydney and Melbourne."
+        }
+      ],
+      "latency_ms": 4261.08
+    },
+    {
+      "id": "Q003",
+      "query": "How many continents are there on Earth?",
+      "category": "simple_factual",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "According to the sources, there are either 4, 5, 6, or 7 continents in the world, depending on who you ask [1]. However, most standards agree that there are 7 continents in the world [1], which include Africa, Antarctica, Asia, Australia/Oceania, Europe, North America, and South America [1, 2, 3, 5]. Therefore, the answer is 7 continents.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 2,
+      "claim_results": [
+        {
+          "claim": "According to the sources, there are either 4, 5, 6, or 7 continents in the world, depending on who you ask .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that there are either four, five, six, or seven continents in the world, depending on who you ask, which confirms the claim."
+        },
+        {
+          "claim": "However, most standards agree that there are 7 continents in the world , which include Africa, Antarctica, Asia, Australia/Oceania, Europe, North America, and South America .",
+          "source_indices": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms that most standards agree there are 7 continents in the world, listing them as Oceania, Europe, Antarctica, South America, North America, Africa, and Asia."
+        }
+      ],
+      "latency_ms": 3163.31
+    },
+    {
+      "id": "Q004",
+      "query": "What is the chemical formula for table salt?",
+      "category": "simple_factual",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The chemical formula for table salt is NaCl [1], [2], [3], [4], [5]. This formula represents a 1:1 ratio of sodium to chlorine [2], [5].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 2,
+      "claim_results": [
+        {
+          "claim": "The chemical formula for table salt is NaCl , , , , .",
+          "source_indices": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the chemical formula for table salt is NaCl."
+        },
+        {
+          "claim": "This formula represents a 1:1 ratio of sodium to chlorine , .",
+          "source_indices": [
+            2,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text explicitly states that Sodium and Chloride are present in a 1:1 ratio in the chemical formula NaCl."
+        }
+      ],
+      "latency_ms": 3977.05
+    },
+    {
+      "id": "Q005",
+      "query": "Who founded the company that makes the chip inside the iPhone 15?",
+      "category": "multi_hop",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The company that makes the chip inside the iPhone 15 is Apple, as it designs its own chips, specifically the A17 Pro processor [1]. According to [5], Apple designs and makes its own chips for iPhone and Mac. However, the sources do not explicitly state who founded Apple. \n\nBut, if we consider the chip manufacturing process, Apple's chips are likely manufactured by TSMC, as Morris Chang is the \"godfather\" of the computer chip industry and founded TSMC, a company that builds chips for others like Apple and NVIDIA [3]. Therefore, Morris Chang can be considered as the founder of the company that manufactures the chip inside the iPhone 15, but not the designer of the chip itself, which is Apple.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 3,
+      "claim_results": [
+        {
+          "claim": "The company that makes the chip inside the iPhone 15 is Apple, as it designs its own chips, specifically the A17 Pro processor .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that Apple designs its own A17 Pro processor, which is used in the iPhone 15 Pro."
+        },
+        {
+          "claim": "According to , Apple designs and makes its own chips for iPhone and Mac.",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text states that Apple is designing custom chips that power its most popular products, including Mac computers, which directly confirms the claim."
+        },
+        {
+          "claim": "But, if we consider the chip manufacturing process, Apple's chips are likely manufactured by TSMC, as Morris Chang is the \"godfather\" of the computer chip industry and founded TSMC, a company that builds chips for others like Apple and NVIDIA .",
+          "source_indices": [
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that TSMC, founded by Morris Chang, builds chips for companies like Apple, which supports the claim about Apple's chip manufacturing process."
+        }
+      ],
+      "latency_ms": 3318.76
+    },
+    {
+      "id": "Q006",
+      "query": "What is the headquarters country of the parent company of WhatsApp?",
+      "category": "multi_hop",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to directly answer the question about the headquarters country of the parent company of WhatsApp. However, we can infer that the parent company of WhatsApp is Meta [2], [5], and Meta is based in the United States, but this information is not explicitly mentioned in the provided sources.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 1,
+      "claim_results": [
+        {
+          "claim": "However, we can infer that the parent company of WhatsApp is Meta , , and Meta is based in the United States, but this information is not explicitly mentioned in the provided sources.",
+          "source_indices": [
+            2,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text explicitly states that WhatsApp was acquired by Meta in 2014, which directly confirms that the parent company of WhatsApp is Meta."
+        }
+      ],
+      "latency_ms": 9865.75
+    },
+    {
+      "id": "Q007",
+      "query": "Who is the CEO of the company that owns Instagram?",
+      "category": "multi_hop",
+      "volatility": "volatile",
+      "status": "success",
+      "answer": "The CEO of the company that owns Instagram is Mark Zuckerberg [1], [2]. He is the chairman and CEO of Meta Platforms, Inc., the company that acquired Instagram in 2012 [1], [2], [5].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 2,
+      "claim_results": [
+        {
+          "claim": "The CEO of the company that owns Instagram is Mark Zuckerberg , .",
+          "source_indices": [
+            1,
+            2
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that Mark Zuckerberg, Meta's chairman and CEO, has controlled Instagram since Meta purchased it in 2012."
+        },
+        {
+          "claim": "He is the chairman and CEO of Meta Platforms, Inc., the company that acquired Instagram in 2012 , , .",
+          "source_indices": [
+            1,
+            2,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that Mark Zuckerberg is the chairman and CEO of Meta Platforms, Inc., which acquired Instagram in 2012."
+        }
+      ],
+      "latency_ms": 10797.42
+    },
+    {
+      "id": "Q008",
+      "query": "What year was the company that primarily manufactures the iPhone's main processor founded?",
+      "category": "multi_hop",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to answer the question. The sources provide information about Apple Inc., the founding of Apple Computer, Inc., the history of Apple iPhones, and the manufacture of the iPhone, but they do not mention the founding year of the company that primarily manufactures the iPhone's main processor.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 0,
+      "claim_results": [],
+      "latency_ms": 5959.55
+    },
+    {
+      "id": "Q009",
+      "query": "What is the current price of Bitcoin?",
+      "category": "simple_factual",
+      "volatility": "volatile",
+      "status": "success",
+      "answer": "The current price of Bitcoin varies slightly depending on the source. According to [1], the current price is $62,962.00. [2] reports a price of $62,865.79, while [3] states the price is $62,896.36. [4] gives a price of $62,935.65, and [5] reports a price of $62,747.40. Since the sources do not agree on a single price, it is not possible to provide a definitive answer. However, the prices range from $62,747.40 to $62,962.00.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.3333,
+      "judge_error_rate": 0.0,
+      "total_claims": 3,
+      "claim_results": [
+        {
+          "claim": "According to , the current price is $62,962.00.",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the Bitcoin price today is $62,962.00, which confirms the claim about the current price."
+        },
+        {
+          "claim": "reports a price of $62,865.79, while  states the price is $62,896.36.",
+          "source_indices": [
+            2,
+            3
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text only mentions one price of $62,865.79 and does not compare it to a price of $62,896.36."
+        },
+        {
+          "claim": "gives a price of $62,935.65, and  reports a price of $62,747.40.",
+          "source_indices": [
+            4,
+            5
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text only mentions one price of $62,935.65, but does not report a second price of $62,747.40."
+        }
+      ],
+      "latency_ms": 11376.14
+    },
+    {
+      "id": "Q010",
+      "query": "Who is the current CEO of OpenAI?",
+      "category": "simple_factual",
+      "volatility": "volatile",
+      "status": "success",
+      "answer": "The current CEO of OpenAI is Sam Altman [1], [2], [4], [5].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 1,
+      "claim_results": [
+        {
+          "claim": "The current CEO of OpenAI is Sam Altman , , , .",
+          "source_indices": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that Sam Altman is the CEO of OpenAI."
+        }
+      ],
+      "latency_ms": 3792.53
+    },
+    {
+      "id": "Q011",
+      "query": "What is the latest stable version of the Python programming language?",
+      "category": "simple_factual",
+      "volatility": "fast_changing",
+      "status": "success",
+      "answer": "The latest stable version of the Python programming language is Python 3.14 [1], which was released on October 7, 2025 [1], [4]. This is also confirmed by the official Python download page, which offers Python 3.14.6 for download [5]. Additionally, the end-of-life date for Python 3.14 is listed as October 1, 2027 [3], and it is considered a stable version [4].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 3,
+      "claim_results": [
+        {
+          "claim": "The latest stable version of the Python programming language is Python 3.14 , which was released on October 7, 2025 , .",
+          "source_indices": [
+            1,
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the latest stable version of Python is 3.14 and was released on October 7, 2025."
+        },
+        {
+          "claim": "This is also confirmed by the official Python download page, which offers Python 3.14.6 for download .",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly mentions Python 3.14.6 as the version available for download."
+        },
+        {
+          "claim": "Additionally, the end-of-life date for Python 3.14 is listed as October 1, 2027 , and it is considered a stable version .",
+          "source_indices": [
+            3,
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly mentions the end-of-life date for the latest version, which is implied to be Python 3.14, as October 1, 2027, and it was released 9 months ago, implying it is a stable version."
+        }
+      ],
+      "latency_ms": 8660.61
+    },
+    {
+      "id": "Q012",
+      "query": "What is today's weather in Tokyo?",
+      "category": "simple_factual",
+      "volatility": "volatile",
+      "status": "success",
+      "answer": "According to source [1], today's weather in Tokyo is light rain with a temperature of 25.2°C (77.4°F) and a humidity of 54%. The wind is blowing at 12.2 km/h (7.6 mph) from the ESE direction, and the cloud cover is 75%. The feels-like temperature is 26.1°C (79.1°F). Additionally, the chance of rain is 14% [1].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 2,
+      "claim_results": [
+        {
+          "claim": "According to source , today's weather in Tokyo is light rain with a temperature of 25.2°C (77.4°F) and a humidity of 54%.",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim with matching weather conditions, temperature, and humidity for Tokyo."
+        },
+        {
+          "claim": "Additionally, the chance of rain is 14% .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim with the 'chance_of_rain' value of 14."
+        }
+      ],
+      "latency_ms": 11604.03
+    },
+    {
+      "id": "Q013",
+      "query": "What will the population of Tokyo be in 2087?",
+      "category": "adversarial",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to answer the question about the population of Tokyo in 2087. Source [1] provides the total population of the world in 2087, but it does not provide information about the population of Tokyo specifically. Sources [2], [3], [4], and [5] provide information about Tokyo's population in other years, but not in 2087. Therefore, the answer to the question cannot be determined based on the provided sources.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 2,
+      "claim_results": [
+        {
+          "claim": "Source  provides the total population of the world in 2087, but it does not provide information about the population of Tokyo specifically.",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text provides the total population of the world in 2087 but does not mention the population of Tokyo specifically."
+        },
+        {
+          "claim": "Sources , , , and  provide information about Tokyo's population in other years, but not in 2087.",
+          "source_indices": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text does not provide information about Tokyo's population in 2087, but rather provides estimates and data for other years, supporting the claim that sources do not provide information about Tokyo's population in 2087."
+        }
+      ],
+      "latency_ms": 22350.49
+    },
+    {
+      "id": "Q014",
+      "query": "What will be the exact closing stock price of Apple on January 1, 2030?",
+      "category": "adversarial",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to answer the question about the exact closing stock price of Apple on January 1, 2030. \n\nWhile source [1] provides a prediction of Apple's stock price for 2030, with a potential closing price near $400-$410, it does not provide a specific date or exact price for January 1, 2030 [1]. The other sources provide historical data or general information about Apple's stock, but do not offer a prediction for the exact closing stock price on January 1, 2030.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 1,
+      "claim_results": [
+        {
+          "claim": "While source  provides a prediction of Apple's stock price for 2030, with a potential closing price near $400-$410, it does not provide a specific date or exact price for January 1, 2030 .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text provides a prediction of Apple's stock price for 2030 with a potential closing price near $400-$410, but does not specify a date or exact price for January 1, 2030."
+        }
+      ],
+      "latency_ms": 21259.6
+    },
+    {
+      "id": "Q015",
+      "query": "What did the President say in a private conversation that was never recorded or reported?",
+      "category": "adversarial",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to answer the question. The sources only mention that President Trump said he has no recordings of his conversations with James Comey [1], [4], [5], but they do not provide any information about the content of those conversations. Additionally, source [3] discusses the lack of records of Trump's speeches at political rallies, but it does not mention private conversations. Source [2] mentions a Signal group chat, but it is not related to a private conversation with the President. Therefore, it is not possible to determine what the President said in a private conversation that was never recorded or reported based on the provided sources.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.6667,
+      "judge_error_rate": 0.0,
+      "total_claims": 3,
+      "claim_results": [
+        {
+          "claim": "The sources only mention that President Trump said he has no recordings of his conversations with James Comey , , , but they do not provide any information about the content of those conversations.",
+          "source_indices": [
+            1,
+            4,
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that President Trump said he has no tapes of his conversations with James Comey, which aligns with the claim that the sources do not provide information about the content of those conversations."
+        },
+        {
+          "claim": "Additionally, source  discusses the lack of records of Trump's speeches at political rallies, but it does not mention private conversations.",
+          "source_indices": [
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim by stating that Trump hasn't given the National Archives records of his speeches at political rallies."
+        },
+        {
+          "claim": "Source  mentions a Signal group chat, but it is not related to a private conversation with the President.",
+          "source_indices": [
+            2
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text does mention a Signal group chat, but it does not explicitly state that it is not related to a private conversation with the President."
+        }
+      ],
+      "latency_ms": 10752.82
+    },
+    {
+      "id": "Q016",
+      "query": "What is the exact number of grains of sand on all of Earth's beaches?",
+      "category": "adversarial",
+      "volatility": "immutable",
+      "status": "success",
+      "answer": "The sources do not contain enough information to provide an exact number of grains of sand on all of Earth's beaches. However, according to [1], there are estimated to be around 5 sextillion (5 x 10^22) grains of sand on all the world's beaches, with a possible range of 2.5 sextillion to 10 sextillion. [2] estimates 7.5 x 10^18 grains of sand, which is a much lower number. [3] estimates 600 billion billion (6 x 10^23) grains of sand, but this is not specific to beaches. [4] also mentions 7.5 quintillion (7.5 x 10^18) grains of sand. [5] mentions 1.5 x 10^24 grains of sand in the Sahara desert, but this is not a global estimate. Overall, the estimates vary widely and are not precise enough to provide an exact number.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.6,
+      "judge_error_rate": 0.0,
+      "total_claims": 5,
+      "claim_results": [
+        {
+          "claim": "However, according to , there are estimated to be around 5 sextillion (5 x 10^22) grains of sand on all the world's beaches, with a possible range of 2.5 sextillion to 10 sextillion.",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim by stating that according to Dr. Jason Marshall's estimates, there are around 5 sextillion grains of sand on all the world's beaches, with a possible range of 2.5 sextillion to 10 sextillion."
+        },
+        {
+          "claim": "estimates 7.5 x 10^18 grains of sand, which is a much lower number.",
+          "source_indices": [
+            2
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text does mention the estimate of 7.5 x 10^18 grains of sand, but it does not compare this number to another quantity to support the claim that it is a much lower number."
+        },
+        {
+          "claim": "estimates 600 billion billion (6 x 10^23) grains of sand, but this is not specific to beaches.",
+          "source_indices": [
+            3
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text mentions the total number of sand grains on Earth's beaches, but does not provide any information that the estimate of 600 billion billion grains of sand is not specific to beaches."
+        },
+        {
+          "claim": "also mentions 7.5 quintillion (7.5 x 10^18) grains of sand.",
+          "source_indices": [
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that scientists estimated 7.5 quintillion grains of sand make up the earth."
+        },
+        {
+          "claim": "mentions 1.5 x 10^24 grains of sand in the Sahara desert, but this is not a global estimate.",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text explicitly states the estimate of 1.5E24 grains of sand in the Sahara, and does not imply it is a global estimate."
+        }
+      ],
+      "latency_ms": 22786.31
+    },
+    {
+      "id": "Q017",
+      "query": "Compare the economic trade-offs of renewable energy subsidies versus fossil fuel subsidies.",
+      "category": "analytical",
+      "volatility": "slow_changing",
+      "status": "success",
+      "answer": "The economic trade-offs of renewable energy subsidies versus fossil fuel subsidies are complex. According to [1], although the total subsidies for renewable energy are significantly lower than those for fossil fuels, they are higher per kilowatt-hour. In contrast, [4] claims that official government data show that renewables are subsidized 30 times more than fossil fuels, with most of the subsidies being in the tax code.\n\nHowever, [2] and [3] suggest that fossil fuel subsidies far exceed those for renewable energy. [2] states that expenditure on fossil-fuel subsidies reduces the funds available to invest in the renewable energy sector, and [3] estimates that the vast majority of energy subsidies have historically gone to fossil fuels and nuclear energy, with annual U.S. energy subsidies ranging from $37 billion to $2 trillion.\n\nAdditionally, [5] notes that fossil fuel subsidies lower prices artificially, disadvantaging renewable energy and influencing consumption and investment. This suggests that fossil fuel subsidies may have a negative impact on the development of renewable energy.\n\nOverall, the sources suggest that fossil fuel subsidies are generally higher than those for renewable energy, but the economic trade-offs are complex and depend on various factors, including the type of subsidy and the level of investment in each sector. [2] and [3] imply that reducing fossil fuel subsidies could benefit the renewable energy sector, but [4] presents a different perspective, highlighting the relatively high subsidies for renewables. More information would be needed to fully compare the economic trade-offs of renewable energy subsidies versus fossil fuel subsidies.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.8333,
+      "judge_error_rate": 0.0,
+      "total_claims": 6,
+      "claim_results": [
+        {
+          "claim": "According to , although the total subsidies for renewable energy are significantly lower than those for fossil fuels, they are higher per kilowatt-hour.",
+          "source_indices": [
+            1
+          ],
+          "verdict": "insufficient_evidence",
+          "reasoning": "The source text provides a conditional statement with 'IF' which makes the information incomplete and uncertain to confirm the claim."
+        },
+        {
+          "claim": "In contrast,  claims that official government data show that renewables are subsidized 30 times more than fossil fuels, with most of the subsidies being in the tax code.",
+          "source_indices": [
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that official government data show renewables are subsidized 30 times more than fossil fuels, with most subsidies being in the tax code."
+        },
+        {
+          "claim": "However,  and  suggest that fossil fuel subsidies far exceed those for renewable energy.",
+          "source_indices": [
+            2,
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that international and country-level estimates show subsidies to fossil-fuel technologies continue to dwarf those to renewable energy."
+        },
+        {
+          "claim": "states that expenditure on fossil-fuel subsidies reduces the funds available to invest in the renewable energy sector, and  estimates that the vast majority of energy subsidies have historically gone to fossil fuels and nuclear energy, with annual U.S.",
+          "source_indices": [
+            2,
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that expenditure on fossil-fuel subsidies reduces the funds available to invest in the renewable energy sector and mentions that subsidies to fossil-fuel technologies continue to dwarf those to renewable energy."
+        },
+        {
+          "claim": "Additionally,  notes that fossil fuel subsidies lower prices artificially, disadvantaging renewable energy and influencing consumption and investment.",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly confirms the claim by stating that fossil fuel subsidies lower prices artificially and disadvantage renewable energy."
+        },
+        {
+          "claim": "and  imply that reducing fossil fuel subsidies could benefit the renewable energy sector, but  presents a different perspective, highlighting the relatively high subsidies for renewables.",
+          "source_indices": [
+            2,
+            3,
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that renewables are subsidized 30 times more than fossil fuels, which implies a different perspective on the subsidies for renewables compared to fossil fuels."
+        }
+      ],
+      "latency_ms": 24110.69
+    },
+    {
+      "id": "Q018",
+      "query": "What are the main trade-offs between microservices and monolithic architecture for a startup?",
+      "category": "analytical",
+      "volatility": "slow_changing",
+      "status": "success",
+      "answer": "The main trade-offs between microservices and monolithic architecture for a startup include development complexity, scalability, time to deploy, flexibility, operating cost, and dependability [2]. Microservices optimize for team autonomy and independent scaling, while monoliths optimize for simplicity and development speed [3]. \n\nMonolithic architecture is simpler and faster to develop, but can be restrictive and time-consuming to modify [5]. On the other hand, microservices are more complex to develop and administer, but offer greater flexibility and scalability [2]. \n\nAdditionally, microservices allow for independent deployment and scaling of individual services, which can be beneficial for larger teams or teams with different locations [1]. However, this also means that updates throughout the whole system can be more expensive in a microservice design [2].\n\nUltimately, the choice between microservices and monolithic architecture depends on the specific needs and trade-offs that a startup is willing to accept [4]. \n\nNote: The sources do not provide a comprehensive list of trade-offs, but rather highlight some of the key considerations.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.7143,
+      "judge_error_rate": 0.0,
+      "total_claims": 7,
+      "claim_results": [
+        {
+          "claim": "The main trade-offs between microservices and monolithic architecture for a startup include development complexity, scalability, time to deploy, flexibility, operating cost, and dependability .",
+          "source_indices": [
+            2
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly lists development complexity, scalability, time to deploy, flexibility, operating cost, and dependability as factors to consider in the trade-offs between microservices and monolithic architecture."
+        },
+        {
+          "claim": "Microservices optimize for team autonomy and independent scaling, while monoliths optimize for simplicity and development speed .",
+          "source_indices": [
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that monoliths optimize for simplicity and development speed, while microservices optimize for team autonomy and independent scaling."
+        },
+        {
+          "claim": "Monolithic architecture is simpler and faster to develop, but can be restrictive and time-consuming to modify .",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that monolithic architecture is restrictive and time-consuming to modify, and implies it is simpler and faster to develop by comparing it to microservices architecture."
+        },
+        {
+          "claim": "On the other hand, microservices are more complex to develop and administer, but offer greater flexibility and scalability .",
+          "source_indices": [
+            2
+          ],
+          "verdict": "insufficient_evidence",
+          "reasoning": "The source text mentions that microservices have higher development complexity and discusses scalability and flexibility as factors to consider, but does not directly compare microservices to other architectures in terms of these factors."
+        },
+        {
+          "claim": "Additionally, microservices allow for independent deployment and scaling of individual services, which can be beneficial for larger teams or teams with different locations .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text does not mention independent deployment and scaling of individual services as a benefit of microservices."
+        },
+        {
+          "claim": "However, this also means that updates throughout the whole system can be more expensive in a microservice design .",
+          "source_indices": [
+            2
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that in a microservice design, updates throughout the whole system can be more expensive because it is dispersed."
+        },
+        {
+          "claim": "Ultimately, the choice between microservices and monolithic architecture depends on the specific needs and trade-offs that a startup is willing to accept .",
+          "source_indices": [
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text states that the choice between microservices and monolithic architecture depends on the problem you are trying to solve and what trade-offs you are able to live with, which aligns with the claim."
+        }
+      ],
+      "latency_ms": 24969.98
+    },
+    {
+      "id": "Q019",
+      "query": "Compare the environmental impact of electric vehicles versus hydrogen fuel cell vehicles.",
+      "category": "analytical",
+      "volatility": "slow_changing",
+      "status": "success",
+      "answer": "According to the sources, both electric vehicles (EVs) and hydrogen fuel cell vehicles (HFCVs) are considered eco-friendly alternatives to traditional vehicles [1], [2]. The environmental impact of EVs and HFCVs is better than traditional vehicles in terms of carbon emissions and safety [1]. HFCVs produce electricity by injecting hydrogen into the vehicle’s fuel cells, and the only by-product of this process is water, resulting in no harmful emissions [4]. However, the lifetime carbon footprint of a standard battery-powered EV depends on how the energy supply is sourced [4]. Additionally, FCEVs are generally only around 38% efficient, meaning that for every 100 watts of energy produced, only around 38 watts can be used to power the FCEV [4]. Overall, both EVs and HFCVs have a lower environmental impact compared to traditional vehicles, but the efficiency and sourcing of energy for EVs and the production and storage of hydrogen for HFCVs can affect their overall environmental impact [1], [2], [4].",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 0.6667,
+      "judge_error_rate": 0.0,
+      "total_claims": 6,
+      "claim_results": [
+        {
+          "claim": "According to the sources, both electric vehicles (EVs) and hydrogen fuel cell vehicles (HFCVs) are considered eco-friendly alternatives to traditional vehicles , .",
+          "source_indices": [
+            1,
+            2
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that EVs and HFCVs are better than traditional vehicles in terms of carbon emissions, implying they are eco-friendly alternatives."
+        },
+        {
+          "claim": "The environmental impact of EVs and HFCVs is better than traditional vehicles in terms of carbon emissions and safety .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that EVs and HFCVs are better than traditional vehicles in terms of carbon emissions and safety."
+        },
+        {
+          "claim": "HFCVs produce electricity by injecting hydrogen into the vehicle’s fuel cells, and the only by-product of this process is water, resulting in no harmful emissions .",
+          "source_indices": [
+            4
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text refers to FCEVs, not HFCVs, when describing the process of producing electricity and emitting only water as a by-product."
+        },
+        {
+          "claim": "However, the lifetime carbon footprint of a standard battery-powered EV depends on how the energy supply is sourced .",
+          "source_indices": [
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the lifetime carbon footprint of a standard battery-powered EV depends on how the energy supply is sourced."
+        },
+        {
+          "claim": "Additionally, FCEVs are generally only around 38% efficient, meaning that for every 100 watts of energy produced, only around 38 watts can be used to power the FCEV .",
+          "source_indices": [
+            4
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that FCEVs are generally only around 38% efficient, meaning that for every 100 watts of energy produced, only around 38 watts can be used to power the FCEV."
+        },
+        {
+          "claim": "Overall, both EVs and HFCVs have a lower environmental impact compared to traditional vehicles, but the efficiency and sourcing of energy for EVs and the production and storage of hydrogen for HFCVs can affect their overall environmental impact , , .",
+          "source_indices": [
+            1,
+            2,
+            4
+          ],
+          "verdict": "unsupported",
+          "reasoning": "The source text does not mention the specific factors affecting the environmental impact of EVs and HFCVs, such as energy efficiency and sourcing for EVs and hydrogen production and storage for HFCVs."
+        }
+      ],
+      "latency_ms": 22701.21
+    },
+    {
+      "id": "Q020",
+      "query": "What are the advantages and disadvantages of remote work versus in-office work for software engineering teams?",
+      "category": "analytical",
+      "volatility": "slow_changing",
+      "status": "success",
+      "answer": "Based on the provided sources, the advantages of remote work for software engineering teams include increased productivity [5], as one person mentioned that they can complete the same amount of work in 3 hours at home that would take 6 hours in the office. Additionally, remote work forces software engineers to be clear in writing, which is a good habit [2]. \n\nThe disadvantages of remote work are not explicitly mentioned in the sources, but some potential drawbacks can be inferred. For example, some companies are adopting strategies that differentiate pay for remote and in-office employees or make remote work a privilege earned through seniority and trust, which could be a disadvantage for some software engineers [1].\n\nAs for in-office work, the sources do not provide a clear list of advantages and disadvantages. However, it is mentioned that some people might find in-office work distracting, and prefer to work from home for focused work [5].\n\nIt's also worth noting that hybrid work has become a dominant model, blending flexibility with structure, and employees are evaluated based on the quality of their work, the completion of projects, and their contribution to team and business goals [3]. \n\nOverall, the sources suggest that remote work can be beneficial for software engineering teams, but the best approach may depend on individual circumstances and preferences. However, the sources do not contain enough information to provide a comprehensive list of advantages and disadvantages of remote work versus in-office work for software engineering teams.",
+      "source_count": 5,
+      "citation_validity": true,
+      "faithfulness_rate": 1.0,
+      "judge_error_rate": 0.0,
+      "total_claims": 5,
+      "claim_results": [
+        {
+          "claim": "Based on the provided sources, the advantages of remote work for software engineering teams include increased productivity , as one person mentioned that they can complete the same amount of work in 3 hours at home that would take 6 hours in the office.",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that the same amount of work that would take 6 hours in the office can be completed in 3 hours at home with no distractions, confirming the claim of increased productivity."
+        },
+        {
+          "claim": "Additionally, remote work forces software engineers to be clear in writing, which is a good habit .",
+          "source_indices": [
+            2
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that remote work forces individuals to be clear in writing, which is considered a good habit."
+        },
+        {
+          "claim": "For example, some companies are adopting strategies that differentiate pay for remote and in-office employees or make remote work a privilege earned through seniority and trust, which could be a disadvantage for some software engineers .",
+          "source_indices": [
+            1
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly mentions that some companies are adopting strategies that differentiate pay for remote and in-office employees or make remote work a privilege earned through seniority and trust."
+        },
+        {
+          "claim": "However, it is mentioned that some people might find in-office work distracting, and prefer to work from home for focused work .",
+          "source_indices": [
+            5
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text mentions that one person might stay at home for focused work because they work in a chaotic office, which directly confirms the claim that some people find in-office work distracting and prefer to work from home for focused work."
+        },
+        {
+          "claim": "It's also worth noting that hybrid work has become a dominant model, blending flexibility with structure, and employees are evaluated based on the quality of their work, the completion of projects, and their contribution to team and business goals .",
+          "source_indices": [
+            3
+          ],
+          "verdict": "supported",
+          "reasoning": "The source text directly states that hybrid work has become the dominant model and describes how employees are evaluated, matching the claim exactly."
+        }
+      ],
+      "latency_ms": 18687.92
+    }
+  ]
+}
