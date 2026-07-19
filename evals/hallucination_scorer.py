@@ -24,7 +24,7 @@ settings = get_settings()
 logger = logging.getLogger(__name__)
 client = Groq(api_key=settings.groq_api_key)
 
-JUDGE_PROMPT_VERSION = "v1.0"
+JUDGE_PROMPT_VERSION = "v1.1"
 
 
 class ClaimVerdict(str, Enum):
@@ -46,6 +46,15 @@ a CLAIM is supported by a specific SOURCE TEXT.
 Critical rule: judge ONLY against the source text provided. Do NOT use your
 own knowledge of whether the claim is true in the real world. A claim can be
 true in reality and still be unsupported if this specific source doesn't say it.
+
+Special case — ABSENCE claims: some claims assert that the source does NOT
+contain certain information (e.g. "the source does not mention the founder").
+For these claims, check whether the source text genuinely lacks that
+information. If it does genuinely lack it, the absence claim is SUPPORTED —
+the claim is correctly describing what is and isn't in the source. Do not
+mark an absence claim UNSUPPORTED just because the source contains other,
+unrelated information. Only mark it UNSUPPORTED if the source actually DOES
+contain the information the claim says is missing.
 
 Classify the claim into exactly one of three categories:
 - "supported": the source text directly confirms this claim

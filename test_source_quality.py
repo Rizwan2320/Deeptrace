@@ -1,17 +1,28 @@
-# test_source_quality.py (throwaway)
-from evals.source_quality_scorer import score_source_quality
-from src.search.client import search
-from src.generation.generator import generate
+# test_absence_claim_fix.py (throwaway)
+from evals.hallucination_scorer import judge_claim
 
-query = "What is the current price of Bitcoin?"
-results = search(query, max_results=5)
-answer = generate(query, results)
+# Case 1 — mirrors Q005: a TRUE absence claim. Source genuinely doesn't
+# mention founders. Should now be SUPPORTED (was UNSUPPORTED before the fix).
+print("Case 1 - true absence claim:")
+print(judge_claim(
+    claim="The source does not mention who founded the company.",
+    source_text="Apple designs its own A17 Pro processor chip for the iPhone 15. The chip features a 6-core CPU and 6-core GPU.",
+))
 
-score = score_source_quality(query, answer, results)
-print(f"Faithfulness rate: {score.faithfulness_rate}")
-print(f"Judge error rate: {score.judge_error_rate}")
-print(f"Citation validity: {score.citation_validity.is_valid}")
-print(f"\nPer-claim breakdown:")
-for c in score.claim_results:
-    print(f"  [{c.verdict.value}] {c.claim}")
-    print(f"    sources: {c.source_indices} | reasoning: {c.reasoning}")
+# Case 2 — the overcorrection check. A FALSE absence claim - the source
+# DOES contain the info, but the claim says it doesn't. Must stay
+# UNSUPPORTED. If this now incorrectly says SUPPORTED, the fix overcorrected
+# into blindly trusting any absence claim.
+print("\nCase 2 - false absence claim (overcorrection check):")
+print(judge_claim(
+    claim="The source does not mention who founded the company.",
+    source_text="TSMC was founded by Morris Chang in 1987 and builds chips for Apple and NVIDIA.",
+))
+
+# Case 3 — mirrors Q006: compound claim mixing a positive fact with an
+# absence fact in one sentence.
+print("\nCase 3 - compound positive+absence claim:")
+print(judge_claim(
+    claim="WhatsApp is owned by Meta Platforms, but the source does not specify Meta's headquarters country.",
+    source_text="WhatsApp was acquired by Meta Platforms in 2014 for $19 billion.",
+))
