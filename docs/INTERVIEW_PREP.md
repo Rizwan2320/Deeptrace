@@ -187,3 +187,87 @@ forgotten.
 
 [YOUR: if you ever do hit a question that needs both axes independently,
 note what it was and whether the TRADEOFFS.md entry correctly predicted it]"
+
+## LLM Evaluation Design
+
+Question: "How do you evaluate whether an LLM's answer is grounded in its sources? What failure modes does a naive approach miss?"
+
+Why they're asking: This is one of the most common senior AI engineering interview questions in 2025–2026. They want to know if you understand the difference between surface-level checks and real grounding evaluation, and whether you've thought about what your scorer actually measures versus what it appears to measure.
+
+Weak answer: "I'd check whether the citations in the answer point to real sources."
+
+Strong answer: "That structural check is necessary but it only catches the easiest 20% of citation failures — a model fabricating citation number [7] when only 5 sources exist. It says nothing about whether the claim next to [3] is actually supported by what source [3] says.
+
+The harder problem is semantic citation alignment. I built an LLM-as-judge that takes one claim and one source text and returns one of three verdicts: supported, unsupported, or insufficient_evidence. The third category is the important design decision — without it, you're forced to classify 'the source is too vague to judge' as either supported or unsupported, which corrupts your hallucination rate in opposite directions depending which way you round. 'Insufficient evidence' tells you the retrieval layer failed this question, not the generation layer — and those are different modules to fix.
+
+The judge prompt explicitly instructs the model not to use its own real-world knowledge, only the provided source text. Without that instruction, the judge grades on truth rather than grounding — it would mark well-known facts as 'supported' even when the source says nothing about them, making the whole scorer useless for detecting grounding failures specifically.
+
+[YOUR: once you have real eval numbers, add: what percentage of answers had structurally valid citations that still failed semantic alignment — that gap number is what makes this answer land in an interview]"
+
+## Taxonomy & Schema Design
+
+Question: "You're building an evaluation dataset for a research agent. How do you categorize questions, and what properties do you track beyond category?"
+
+Why they're asking: They want to see if you think about evaluation as a measurement instrument design problem, not just a list of test cases. Good eval design requires understanding what you're measuring independently on each axis.
+
+Weak answer: "I'd have categories like factual, multi-hop, and hard questions."
+
+Strong answer: "Category and volatility are two independent axes that both matter but for completely different reasons. Category describes question structure — simple factual questions have one answer that can be looked up directly, multi-hop questions require chaining facts across sources, adversarial questions should be refused, analytical questions have no single correct answer. That determines how you route, decompose, and score the question.
+
+Volatility describes the temporal stability of the ground truth — I use four levels: immutable (boiling point of water, logically cannot change), slow-changing (population figures, re-verify annually), fast-changing (software versions, re-verify monthly), volatile (prices and weather, no fixed gold answer at all — grade on behavior instead).
+
+The mistake I initially made was creating a standalone 'recency' category alongside the structural categories. That collapses two independent axes into one — a multi-hop question can independently be volatile, a simple factual question can independently be volatile. Keeping them separate means the dataset correctly represents: 'this is a volatile multi-hop question' rather than forcing it into a single bucket that loses the structural information you need for routing and scoring.
+
+A third axis that matters but I haven't yet added as an explicit field is agreement — whether everyone looking at the same facts converges on one answer right now, independent of whether that answer changes over time. Analytical questions are stable on the time axis but have low agreement permanently. I track this implicitly through category right now, which works at 20 questions and starts to break down at 100+.
+
+[YOUR: update with your actual distribution numbers once at 100 questions — 'our dataset has 30 simple factual, 25 multi-hop, 25 adversarial, 20 analytical, with 18 volatile and 12 fast-changing across categories' is a much more credible answer than describing the design in the abstract]"
+
+## Measurement System Design
+
+Question: "You run your evaluation suite and get a 0% faithfulness score on a query where the model's answer was actually correct. How do you diagnose this, and what does it tell you about your eval system?"
+
+Why they're asking: This is one of the hardest senior AI engineering questions — it tests whether you understand that a broken measurement tool is more dangerous than a broken feature, and whether you can distinguish a model failure from an eval failure without getting confused by the numbers.
+
+Weak answer: "I'd look at the answer and check if the model hallucinated."
+
+Strong answer: "The first thing I check is whether the failure is in the model or in the measurement tool itself. A 0% faithfulness score on a good answer is a false negative — the scorer is penalizing correct behavior. That's worse than a false positive in some ways, because it would lead you to 'fix' generation when generation is fine.
+
+I hit this exact case: a Bitcoin price query returned five different prices from five different sources, one per bullet point. Each individual price was sourced correctly. But my claim extractor used a regex sentence splitter that only splits on sentence-ending punctuation — bullet lists don't have sentence-ending punctuation between items, so the entire bullet block became one compound claim. The judge then asked: 'does source [1] support a claim that lists five different prices?' Source [1] only had one price, so it said UNSUPPORTED. Faithfulness: 0.0. The model was completely correct.
+
+The diagnosis process: read the raw claim_results output, not just the aggregate score. Each ClaimResult has the extracted claim text, the source indices, and the judge's reasoning. The reasoning said 'source [1] only reports one price' — that's a signal the extractor collapsed multiple distinct claims into one, not that the model hallucinated.
+
+The fix: documented the failure mode, added it to the running count of Option A extractor failures, and set a concrete trigger (>15% false negative rate on a full eval run) for switching to an LLM-based extractor that handles bullet lists and compound sentences. The measurement tool's failure mode is now known, documented, and has a defined remediation path.
+
+[YOUR: once you run the full 20-question eval, report the actual false negative rate from Option A — that number either validates the 15% threshold or tells you to switch earlier than planned]"
+
+## Verification Architecture
+
+Question: "Why not have the model generate a claim and check its own grounding in the same generation pass? Wouldn't that be simpler and cheaper?"
+
+Why they're asking: This is the central design question behind every generate-then-verify architecture, including Chain-of-Verification (CoVe). They want to know if you understand self-consistency bias, or if you'd default to the naive "just ask the model to double check itself" approach that doesn't actually work.
+
+Weak answer: "I'd just ask the model to verify its own answer after generating it, in the same response."
+
+Strong answer: "That approach has a fundamental flaw: a model checking its own claim in the same context it just generated that claim isn't performing an independent check — it's echoing its own prior commitment. The model already decided, in that context, that a source supports its claim. Asking it to reassess immediately after, with that justification still in its working context, produces overwhelming self-confirmation rather than genuine error detection. This is a documented failure mode — self-critique in the same context catches far fewer errors than independent re-evaluation.
+
+The architecture that actually works separates generation and verification into genuinely independent calls, where the verifier does not see the generator's reasoning or justification — only the claim itself and the raw source material. I built this directly: my hallucination judge receives only (claim, source_text), never the full original answer or the model's stated confidence. This is also the core insight behind Chain-of-Verification — verification questions are answered without the model seeing its own baseline answer, specifically to prevent anchoring on a prior claim.
+
+The trade-off is real and worth naming: this costs one additional LLM call per claim instead of one call total. I accept that cost because an independent check that can actually catch errors is worth more than a cheap check that just rubber-stamps the original output. I'd also flag a remaining limitation honestly: using the same underlying model as both generator and judge, even in separate calls, risks correlated blind spots — a stronger mitigation would use a different model as judge, which is a natural next iteration once the current architecture's ceiling is measured.
+
+[YOUR: once you've run enough evals, note whether you've observed any case where the same-model judge missed something a human reviewer caught — that's the concrete evidence for whether the correlated-blind-spot risk is real in your system or mostly theoretical]"
+
+## Eval Metric Design
+
+Question: "Your eval harness reports a 0.0 score on an answer that a human would consider perfectly correct. Walk me through how you'd find and fix this."
+
+Why they're asking: Distinguishes engineers who trust their own metrics blindly from those who treat a bad number as a signal to investigate the measurement tool, not just the system being measured.
+
+Weak answer: "I'd look at the answer and see if the model made a mistake."
+
+Strong answer: "The first move is checking whether the number reflects a genuine model failure or a flaw in how the metric is computed - those require completely different fixes. I hit this directly: a multi-hop question got a 0.0 faithfulness score, but the actual answer was a clean, correct hedge - 'the sources don't contain this information' - with zero citations, because it made zero grounded claims.
+
+The bug was in the aggregation, not the model. My scorer computed faithfulness as supported_claims / total_claims, and defaulted to 0.0 whenever total_claims was zero. That's wrong: zero claims means there was nothing to check, not that everything checked failed. Forcing both situations onto the same 0-to-1 scale means a correct refusal looks identical to a total hallucination in your aggregate numbers - and if you're averaging faithfulness by category, every hedge in that category silently drags the average down as if it were a failure.
+
+The fix: made faithfulness_rate nullable. None means 'nothing to score here', tracked with a separate zero_claims flag and count, excluded from averages rather than defaulted into them. This is the same principle behind a documented eval bug in the curriculum I was following - an earlier version's scorer set correctness=None for hedge answers and silently skipped them from every metric, hiding 30% of the dataset. I made a different mistake in the opposite direction - defaulting instead of skipping - but the underlying lesson is identical: never let 'I can't measure this case' collapse into either extreme of your metric's actual range. Give it an explicit third state.
+
+[YOUR: once you rerun the eval with this fix, report the actual shift in avg_faithfulness_rate - the size of that shift is the concrete evidence for how much this bug was distorting your numbers]"

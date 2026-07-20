@@ -87,3 +87,22 @@ This is a false negative — the scorer is penalizing good behavior.
 Running tally of Option A failures: 2 (compound sentence, bullet list).
 Switch trigger remains: if false negative rate exceeds 15% on a full
 eval run, switch to LLM extractor.
+
+## TD-005: faithfulness_rate is nullable, not defaulted to 0.0
+
+Decision: SourceQualityScore.faithfulness_rate is Optional[float]. None when zero claims were extracted (typically a correct hedge/refusal). Reason: a hedge is not a hallucination. Scoring it as 0.0 - the worst possible faithfulness score - actively penalizes correct behavior and corrupts category averages, especially for adversarial and multi-hop questions where hedging is often the right answer. Tradeoff: downstream consumers of this score (dashboards, aggregators) must explicitly handle None rather than assuming a numeric value always exists. This is a deliberate cost - it's the same cost the v2.0 curriculum paid, and got wrong, by silently excluding None instead of surfacing it. We surface it via zero_claims and zero_claim_count instead. Status: Resolved.
+
+## TD-004 update 3: same root cause, third observed trigger
+
+Observed: Q009 (Bitcoin, full baseline run) - "reports a price of
+$62,865.79, while states the price is $62,896.36" merged into one claim
+citing [2,3]. Same root cause as failure modes 1 and 2 (regex only splits
+on sentence-ending punctuation) - this time triggered by a comma+
+conjunction join rather than "or" (mode 1) or a bullet list (mode 2).
+Running count of confirmed instances: 3, all from the same single root
+cause, not three distinct mechanisms.
+Switch trigger unchanged: >15% false negative rate on a full eval run.
+
+## TD-004 update 5: two more compound-claim instances, decision to measure objectively
+
+Q008 and Q009 (this run) both show fresh compound-claim symptoms. Manual eyeballing across ~5 runs is no longer a reliable way to track this against the 15% switch threshold - too easy to undercount or overcount by feel. Decision: before the next full eval run, build a lightweight heuristic counter (claims with 2+ cited sources AND visible " , " comma artifacts from stripped citations, as a proxy for extractor-collapsed compound claims) to get an objective percentage instead of continuing to eyeball individual claim_results by hand. Status: Open. Objective measurement is the next concrete step before deciding to switch extractors.
